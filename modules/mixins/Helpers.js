@@ -37,7 +37,7 @@ var Helpers = {
       propTypes: protoTypes,
 
       getDefaultProps: function() {
-        return {offset: 0};
+        return {offset: 0,scrollOffset:0};
       },
 
       scrollTo : function(to, props) {
@@ -69,12 +69,13 @@ var Helpers = {
       },
 
       spyHandler: function(y) {
+        console.log(this.props);
         var element = scroller.get(this.props.to);
         if (!element) return;
         var cords = element.getBoundingClientRect();
         var topBound = cords.top + y;
         var bottomBound = topBound + cords.height;
-        var offsetY = y - this.props.offset;
+        var offsetY = y - this.props.offset + this.props.scrollOffset;
         var to = this.props.to;
         var isInside = (offsetY >= topBound && offsetY <= bottomBound);
         var isOutside = (offsetY < topBound || offsetY > bottomBound);
